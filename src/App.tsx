@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import List from "./List";
+import { Todo } from "./List";
 
 const initialTodos = [
   { id: 1, task: "Do homework" },
@@ -9,6 +10,7 @@ const initialTodos = [
 function App() {
   const [todoList, setTodoList] = useState(initialTodos);
   const [task, setTask] = useState("");
+  const [term, setTerm] = useState("");
 
   useEffect(() => {
     console.log("Rendering <App />");
@@ -23,6 +25,15 @@ function App() {
     setTask("");
   };
 
+  const handleSearch = () => {
+    setTerm(task);
+  };
+
+  const filteredTodoList = todoList.filter((todo: Todo) => {
+    console.log("Filtering");
+    return todo.task.toLocaleLowerCase().includes(term.toLocaleLowerCase());
+  });
+
   return (
     <div className="App">
       <input
@@ -31,8 +42,9 @@ function App() {
         onChange={(e) => setTask(e.target.value)}
       />
       <button onClick={handleCreate}>Create</button>
+      <button onClick={handleSearch}>Search</button>
 
-      <List todoList={todoList} />
+      <List todoList={filteredTodoList} />
     </div>
   );
 }
