@@ -29,10 +29,13 @@ function App() {
     setTerm(task);
   };
 
-  const handleDelete = (taskId: number) => {
-    const newTodoList = todoList.filter((todo: Todo) => todo.id !== taskId);
-    setTodoList(newTodoList);
-  };
+  const handleDelete = useCallback(
+    () => (taskId: number) => {
+      const newTodoList = todoList.filter((todo: Todo) => todo.id !== taskId);
+      setTodoList(newTodoList);
+    },
+    [todoList]
+  );
 
   const filteredTodoList = useMemo(
     () =>
