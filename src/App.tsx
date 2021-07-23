@@ -29,10 +29,14 @@ function App() {
     setTerm(task);
   };
 
-  const filteredTodoList = todoList.filter((todo: Todo) => {
-    console.log("Filtering");
-    return todo.task.toLocaleLowerCase().includes(term.toLocaleLowerCase());
-  });
+  const filteredTodoList = useMemo(
+    () =>
+      todoList.filter((todo: Todo) => {
+        console.log("Filtering");
+        return todo.task.toLocaleLowerCase().includes(term.toLocaleLowerCase());
+      }),
+    [term, todoList]
+  );
 
   return (
     <div className="App">
