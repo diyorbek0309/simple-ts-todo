@@ -29,6 +29,11 @@ function App() {
     setTerm(task);
   };
 
+  const handleDelete = (taskId: number) => {
+    const newTodoList = todoList.filter((todo: Todo) => todo.id !== taskId);
+    setTodoList(newTodoList);
+  };
+
   const filteredTodoList = useMemo(
     () =>
       todoList.filter((todo: Todo) => {
@@ -48,7 +53,7 @@ function App() {
       <button onClick={handleCreate}>Create</button>
       <button onClick={handleSearch}>Search</button>
 
-      <List todoList={filteredTodoList} />
+      <List todoList={filteredTodoList} handleDelete={handleDelete} />
     </div>
   );
 }
